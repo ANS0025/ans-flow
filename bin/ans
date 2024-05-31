@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+define('ANS_CLI_ROOT', dirname( __DIR__ ));
+define('ANS_CLI_VENDOR_DIR', ANS_CLI_ROOT . '/vendor');
+define('ANS_CLI_VERSION', '1.0.0');
+
+require_once ANS_CLI_VENDOR_DIR . "/autoload.php";
+
+use ANS_CLI\Application;
+
+/**
+ * get_bootstrap_class
+ *
+ * @access public
+ * @return array
+ */
+function get_bootstrap_class() {
+	return array(
+		'ANS_CLI\Console\Flow\FlowCommand',
+		'ANS_CLI\Console\Flow\InitCommand',
+		'ANS_CLI\Console\Flow\FeatureCommand',
+		'ANS_CLI\Console\Flow\ReleaseCommand',
+		'ANS_CLI\Console\Flow\VersionCommand',
+	);
+}
+
+$app = new Application('ans command', ANS_CLI_VERSION);
+
+// sub command load
+foreach(get_bootstrap_class() as $class) {
+	$app->add( new $class() );
+}
+
+$app->run();

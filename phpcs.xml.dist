@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="projektmotor-coding-standard">
+    <rule ref="vendor/projektmotor/symfony-coding-standard/ProjektMOTORCodingStandard/ruleset.xml">
+        <!-- If the standard is too hard, you can exclude some rules like this: -->
+        <!-- <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found" /> -->
+        <!-- <exclude name="Generic.Files.LineLength.TooLong" /> -->
+        <exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified" />
+    </rule>
+    
+    <!-- Exclude project specific files if you want -->
+    <!-- <exclude-pattern>WakkaFormatter</exclude-pattern> -->
+</ruleset>

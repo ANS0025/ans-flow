@@ -1,0 +1,51 @@
+{
+    "name": "ans0025/ans-cli",
+    "description": "ANS cli",
+    "keywords": [
+        "cli",
+        "git-flow"
+    ],
+    "autoload": {
+        "psr-4": {
+            "ANS_CLI\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ans",
+            "email": "niko.aegis@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^6.3",
+        "symfony/process": "*"
+    },
+    "require-dev": {
+        "projektmotor/symfony-coding-standard": "^1.0",
+        "symfony/var-dumper": "*",
+        "phpunit/phpunit": "^11.1",
+        "symfony/test-pack": "^1.0",
+        "symfony/framework-bundle": "^7.0"
+    },
+    "scripts": {
+        "check": [
+            "@cs-check"
+        ],
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "auto-scripts": [
+            "vendor/bin/phpcs --config-set installed_paths vendor/projektmotor/symfony-coding-standard/ProjektMOTORCodingStandard/"
+        ],
+        "cs-check": "vendor/bin/phpcs -s -p --colors src/",
+        "cs-fix": "vendor/bin/phpcbf --colors src/"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
