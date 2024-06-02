@@ -1,6 +1,6 @@
 ## 概要
 Ans Flowは、独自のGit Branch戦略に沿ったワークフローをサポートするためにGit Flowを独自にカスタマイズしたCLIツール。  
-Featureブランチ、Releaseブランチ、バージョン管理等、Git Flowの一般的なタスクを簡略化したコマンドを提供。  
+Featureブランチ、Releaseブランチ、バージョン管理等、Git Flowの一般的なタスクをより簡略化したコマンドを提供。  
 Ans Flowは、SymfonyConsoleコンポーネントを使用して構築されている。  
 
 ## プロジェクト目的
