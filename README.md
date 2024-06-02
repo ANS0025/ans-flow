@@ -18,7 +18,7 @@ Ans Flowは、SymfonyConsoleコンポーネントを使用して構築されて�
   - リリースブランチの完了: ```ans flow:release finish [-pk] <name>```
 - バージョン管理: ```ans flow:version```
 
-## 参考
+## 参考資料
 - [The Console Component](https://symfony.com/doc/current/components/console.html)
 - [Git-flowをざっと整理してみた](https://dev.classmethod.jp/articles/introduce-git-flow/)
 - [gitflow](https://github.com/nvie/gitflow)
