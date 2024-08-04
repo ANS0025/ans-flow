@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ANS_CLI\Console\Flow;
 
+use ANS_CLI\Console\FlowCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,8 +11,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-class FeatureCommand extends CommandUtils
+class FeatureCommand extends FlowCommand
 {
+    private string $usage = "usage: ans flow:feature [list] [-v]\n" .
+                     "       ans flow:feature start <name> [<baseBranch>]\n" .
+                     "       ans flow:feature finish [-k] <name|nameprefix> [<targetBranch>]"
+                     ;
+
     /**
      * configure
      *
@@ -24,6 +30,7 @@ class FeatureCommand extends CommandUtils
             ->setDescription('Manage feature branches')
             ->addArgument('action', InputArgument::OPTIONAL, 'The action to perform (start, finish, list)', 'list')
             ->addArgument('name', InputArgument::OPTIONAL, 'The feature branch name')
+            ->addArgument('baseBranch', InputArgument::OPTIONAL, 'The base branch to start or finish the feature')
             ->addOption('keep', 'k', InputOption::VALUE_NONE, 'Keep branch after performing finish')
             ;
     }
@@ -42,15 +49,16 @@ class FeatureCommand extends CommandUtils
 
         $action = $input->getArgument('action');
         $name = $input->getArgument('name');
+        $baseBranch = $input->getArgument('baseBranch');
         $keep = $input->getOption('keep');
         $verbose = $input->getOption('verbose');
 
         switch ($action) {
             case 'start':
-                $this->startFeature($name, $output);
+                $this->startFeature($name, $baseBranch, $output);
                 break;
             case 'finish':
-                $this->finishFeature($name, $keep, $output);
+                $this->finishFeature($name, $baseBranch, $keep, $output);
                 break;
             case 'list':
                 $this->listFeatures($output, $verbose);
@@ -68,12 +76,12 @@ class FeatureCommand extends CommandUtils
      * Start a new feature branch
      *
      * @param string          $name
-     * @param bool            $fetch
+     * @param string|null     $baseBranch
      * @param OutputInterface $output
      */
-    protected function startFeature(?string $name, OutputInterface $output): void
+    protected function startFeature(?string $name, ?string $baseBranch, OutputInterface $output): void
     {
-        $productionBranch = 'production';
+        $baseBranch = $baseBranch ??= 'production';
         $featurePrefix = $this->getPrefix('feature', $output);
         $featureBranch = $featurePrefix . $name;
 
@@ -81,15 +89,15 @@ class FeatureCommand extends CommandUtils
         $this->branchNameExists($name, $this->usage, $output);
         $this->requireFeatureBranchAbsent($featureBranch, $output);
 
-        // Create the feature branch based on the production branch
-        $this->createBranch($featureBranch, $productionBranch, $output);
+        // Create the feature branch based on the specified base branch
+        $this->createBranch($featureBranch, $baseBranch, $output);
 
         // Output the summary
         $output->writeln([
             "Switched to a new branch '{$featureBranch}'",
             "",
             "Summary of actions:",
-            "- A new branch '{$featureBranch}' was created, based on '{$productionBranch}'",
+            "- A new branch '{$featureBranch}' was created, based on '{$baseBranch}'",
             "- You are now on branch '{$featureBranch}'",
             "",
             "Now, start committing on your feature. When done, use:",
@@ -103,16 +111,13 @@ class FeatureCommand extends CommandUtils
      * Finish a feature branch
      *
      * @param string          $name
-     * @param bool            $fetch
-     * @param bool            $rebase
+     * @param string|null     $targetBranch
      * @param bool            $keep
-     * @param bool            $forceDelete
-     * @param bool            $squash
      * @param OutputInterface $output
      */
-    protected function finishFeature(?string $name, bool $keep, OutputInterface $output): void
+    protected function finishFeature(?string $name, ?string $targetBranch, bool $keep, OutputInterface $output): void
     {
-        $mainBranch = 'main';
+        $targetBranch = $targetBranch ??= 'main';
         $featurePrefix = $this->getPrefix('feature', $output);
         $featureBranch = $featurePrefix . $name;
 
@@ -124,34 +129,35 @@ class FeatureCommand extends CommandUtils
         // Get the commit hash of the latest commit on the feature branch
         $commitHash = $this->getLatestCommitHash($featureBranch, $output);
 
-        // Merge into main branch
-        $this->mergeBranch($featureBranch, $mainBranch, $output);
+        // Merge into the specified target branch
+        $this->mergeBranch($featureBranch, $targetBranch, $output);
 
         // Delete the feature branch if not keeping
         if (!$keep) {
             $this->deleteLocalBranch($featureBranch, $output);
         }
 
-        $output->writeln(["Switched to branch '{$mainBranch}'",
-                         "Your branch is up to date with 'origin/{$mainBranch}'.",
+        $output->writeln(["Switched to branch '{$targetBranch}'",
+                         "Your branch is up to date with 'origin/{$targetBranch}'.",
         "Already up to date.", ]);
         if (!$keep) {
                 $output->writeln("Deleted branch {$featureBranch} (was {$commitHash}).");
         }
         $output->writeln("\nSummary of actions:");
-        $output->writeln("- The feature branch '{$featureBranch}' was merged into '{$mainBranch}'");
+        $output->writeln("- The feature branch '{$featureBranch}' was merged into '{$targetBranch}'");
         if ($keep) {
             $output->writeln("- Feature branch '{$featureBranch}' is still available");
         } else {
             $output->writeln("- Feature branch '{$featureBranch}' has been removed");
         }
-        $output->writeln("- You are now on branch '{$mainBranch}'\n");
+        $output->writeln("- You are now on branch '{$targetBranch}'\n");
     }
 
     /**
      * List all feature branches
      *
      * @param OutputInterface $output
+     * @param bool            $verbose
      */
     protected function listFeatures(OutputInterface $output, bool $verbose): void
     {
@@ -223,6 +229,7 @@ class FeatureCommand extends CommandUtils
      * Check if a feature branch name is empty
      *
      * @param string|null $branch The name of the branch with prefix
+     * @param string|null $name   The name of the branch without prefix
      * @param string|null $output The name of the branch without prefix
      *
      * @return void
@@ -239,7 +246,7 @@ class FeatureCommand extends CommandUtils
     /**
      * Require a branch to be absent
      *
-     * @param string|null $name   The name of the branch
+     * @param string|null $branch The name of the branch
      * @param mixed       $output The output interface
      *
      * @return void
@@ -254,9 +261,4 @@ class FeatureCommand extends CommandUtils
             exit(Command::FAILURE);
         }
     }
-
-    private $usage = "usage: ans flow:feature [list] [-v]\n" .
-                     "       ans flow:feature start <name>\n" .
-                     "       ans flow:feature finish [-k] <name|nameprefix>"
-                     ;
 }

@@ -28,7 +28,7 @@ class Application extends SymfonyApplication
      *
      * @return void
      */
-    protected function getCommonOptions()
+    protected function getCommonOptions(): array | false
     {
         return [];
     }

@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace ANS_CLI\Console\Flow;
 
+use ANS_CLI\Console\FlowCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class VersionCommand extends Command
+class VersionCommand extends FlowCommand
 {
     /**
      * configure
@@ -21,7 +22,7 @@ class VersionCommand extends Command
         parent::configure();
 
         $this
-            ->setName('flow:version')
+            ->setName('version')
             ->setDescription("Display ans flow version")
         ;
     }

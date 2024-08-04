@@ -16,7 +16,7 @@ use ANS_CLI\Application;
  */
 function get_bootstrap_class() {
 	return array(
-		'ANS_CLI\Console\Flow\FlowCommand',
+		'ANS_CLI\Console\FlowCommand',
 		'ANS_CLI\Console\Flow\InitCommand',
 		'ANS_CLI\Console\Flow\FeatureCommand',
 		'ANS_CLI\Console\Flow\ReleaseCommand',

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ANS_CLI\Console\Flow;
 
+use ANS_CLI\Console\FlowCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -10,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Process\Process;
 
-class InitCommand extends Command
+class InitCommand extends FlowCommand
 {
     /**
      * configure
@@ -91,7 +92,7 @@ class InitCommand extends Command
                 }
             }
             $masterBranch = $helper->ask($input, $output, new Question('Branch name for production releases: [production] ', 'production'));
-            if ($useForce && !in_array($masterBranch, $localBranches)) {
+            if ($useForce && !in_array($masterBranch, $localBranches, true)) {
                 $output->writeln("Local branch '$masterBranch' does not exist.");
 
                 return Command::FAILURE;
@@ -106,7 +107,7 @@ class InitCommand extends Command
                 }
             }
             $developBranch = $helper->ask($input, $output, new Question('Branch name for "next release" development: [main] ', 'main'));
-            if ($useForce && !in_array($developBranch, $localBranches)) {
+            if ($useForce && !in_array($developBranch, $localBranches, true)) {
                 $output->writeln("Local branch '$developBranch' does not exist.");
 
                 return Command::FAILURE;
@@ -126,7 +127,7 @@ class InitCommand extends Command
             $commitCountProcess->run();
             $commitCount = intval(trim($commitCountProcess->getOutput()));
 
-            if ($commitCount === 0) {
+            if (0 === $commitCount) {
                 // If there are no commits, create an initial empty commit
                 $process = new Process(['git', 'commit', '--allow-empty', '-m', 'Initial commit']);
                 $process->run();
@@ -155,7 +156,7 @@ class InitCommand extends Command
             $commitCountProcess->run();
             $commitCount = intval(trim($commitCountProcess->getOutput()));
 
-            if ($commitCount === 0) {
+            if (0 === $commitCount) {
                 // If there are no commits, create an initial empty commit
                 $process = new Process(['git', 'commit', '--allow-empty', '-m', 'Initial commit']);
                 $process->run();
@@ -197,12 +198,12 @@ class InitCommand extends Command
         $process = new Process(['git', 'config', 'ansflow.prefix.release', $releasePrefix]);
         $process->run();
 
-        $output->writeln('ANSflow initialized successfully.');
+        $output->writeln('Gigflow initialized successfully.');
 
         return Command::SUCCESS;
     }
 
-    private function getLocalBranches(): array
+    private function getLocalBranches(): array | false
     {
         $process = new Process(['git', 'branch']);
         $process->run();

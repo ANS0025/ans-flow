@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ANS_CLI\Console\Flow;
 
+use ANS_CLI\Console\FlowCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,8 +12,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Process\Process;
 
-class ReleaseCommand extends CommandUtils
+class ReleaseCommand extends FlowCommand
 {
+    private string $usage = "usage: ans flow:release [list] [-v]\n" .
+                     "       ans flow:release start <version>\n" .
+                     "       ans flow:release finish [-pk] <version>"
+                     ;
+
     /**
      * configure
      *
@@ -71,7 +77,6 @@ class ReleaseCommand extends CommandUtils
      * Start a new release branch
      *
      * @param string          $name
-     * @param bool            $fetch
      * @param OutputInterface $output
      */
     protected function startRelease(?string $name, OutputInterface $output): void
@@ -110,11 +115,9 @@ class ReleaseCommand extends CommandUtils
      * Finish a release branch
      *
      * @param string          $name
-     * @param bool            $fetch
-     * @param bool            $rebase
      * @param bool            $keep
-     * @param bool            $forceDelete
-     * @param bool            $squash
+     * @param bool            $push
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function finishRelease(?string $name, bool $keep, bool $push, InputInterface $input, OutputInterface $output): void
@@ -183,6 +186,7 @@ class ReleaseCommand extends CommandUtils
      * List all release branches
      *
      * @param OutputInterface $output
+     * @param bool            $verbose
      */
     protected function listReleases(OutputInterface $output, bool $verbose): void
     {
@@ -268,6 +272,8 @@ class ReleaseCommand extends CommandUtils
     /**
      * Require a branch to be absent
      *
+     * @param OutputInterface $output
+     *
      * @return void
      */
     protected function requireRleaseBranchesAbsent(OutputInterface $output): void
@@ -320,7 +326,10 @@ class ReleaseCommand extends CommandUtils
     /**
      * Push a branch to origin
      *
-     * @param string $branch
+     * @param string          $branch
+     * @param OutputInterface $output
+     *
+     * @return void
      */
     protected function pushBranch(string $branch, OutputInterface $output): void
     {
@@ -417,7 +426,8 @@ class ReleaseCommand extends CommandUtils
     /**
      * Check if a tag exists
      *
-     * @param string $name
+     * @param string          $name
+     * @param OutputInterface $output
      *
      * @return bool
      */
@@ -432,9 +442,4 @@ class ReleaseCommand extends CommandUtils
             exit(Command::FAILURE);
         }
     }
-
-    private $usage = "usage: ans flow:release [list] [-v]\n" .
-                     "       ans flow:release start <version>\n" .
-                     "       ans flow:release finish [-pk] <version>"
-                     ;
 }
