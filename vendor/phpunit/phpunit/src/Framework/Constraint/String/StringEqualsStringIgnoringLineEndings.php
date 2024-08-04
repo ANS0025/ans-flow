@@ -15,7 +15,7 @@ use function strtr;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringEqualsStrinANSnoringLineEndings extends Constraint
+final class StringEqualsStringignoringLineEndings extends Constraint
 {
     private readonly string $string;
 

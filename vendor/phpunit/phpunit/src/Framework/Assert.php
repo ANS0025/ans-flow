@@ -58,7 +58,7 @@ use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\Constraint\SameSize;
 use PHPUnit\Framework\Constraint\StringContains;
 use PHPUnit\Framework\Constraint\StringEndsWith;
-use PHPUnit\Framework\Constraint\StringEqualsStrinANSnoringLineEndings;
+use PHPUnit\Framework\Constraint\StringEqualsStringignoringLineEndings;
 use PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
 use PHPUnit\Framework\Constraint\StringStartsWith;
 use PHPUnit\Framework\Constraint\TraversableContainsEqual;
@@ -1632,7 +1632,7 @@ abstract class Assert
     /**
      * @throws ExpectationFailedException
      */
-    final public static function assertStringContainsStrinANSnoringLineEndings(string $needle, string $haystack, string $message = ''): void
+    final public static function assertStringContainsStringignoringLineEndings(string $needle, string $haystack, string $message = ''): void
     {
         static::assertThat($haystack, new StringContains($needle, false, true), $message);
     }
@@ -1642,9 +1642,9 @@ abstract class Assert
      *
      * @throws ExpectationFailedException
      */
-    final public static function assertStringEqualsStrinANSnoringLineEndings(string $expected, string $actual, string $message = ''): void
+    final public static function assertStringEqualsStringignoringLineEndings(string $expected, string $actual, string $message = ''): void
     {
-        static::assertThat($actual, new StringEqualsStrinANSnoringLineEndings($expected), $message);
+        static::assertThat($actual, new StringEqualsStringignoringLineEndings($expected), $message);
     }
 
     /**
@@ -1803,7 +1803,7 @@ abstract class Assert
     /**
      * @throws ExpectationFailedException
      */
-    final public static function assertStringContainsStrinANSnoringCase(string $needle, string $haystack, string $message = ''): void
+    final public static function assertStringContainsStringignoringCase(string $needle, string $haystack, string $message = ''): void
     {
         $constraint = new StringContains($needle, true);
 
@@ -1823,7 +1823,7 @@ abstract class Assert
     /**
      * @throws ExpectationFailedException
      */
-    final public static function assertStringNotContainsStrinANSnoringCase(string $needle, string $haystack, string $message = ''): void
+    final public static function assertStringNotContainsStringignoringCase(string $needle, string $haystack, string $message = ''): void
     {
         $constraint = new LogicalNot(new StringContains($needle, true));
 
@@ -2331,9 +2331,9 @@ abstract class Assert
         return new StringEndsWith($suffix);
     }
 
-    final public static function stringEqualsStrinANSnoringLineEndings(string $string): StringEqualsStrinANSnoringLineEndings
+    final public static function stringEqualsStringignoringLineEndings(string $string): StringEqualsStringignoringLineEndings
     {
-        return new StringEqualsStrinANSnoringLineEndings($string);
+        return new StringEqualsStringignoringLineEndings($string);
     }
 
     final public static function countOf(int $count): Count

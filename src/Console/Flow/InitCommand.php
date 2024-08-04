@@ -198,7 +198,7 @@ class InitCommand extends FlowCommand
         $process = new Process(['git', 'config', 'ansflow.prefix.release', $releasePrefix]);
         $process->run();
 
-        $output->writeln('Gigflow initialized successfully.');
+        $output->writeln('Ans flow initialized successfully.');
 
         return Command::SUCCESS;
     }

@@ -580,7 +580,7 @@ class ComposerStaticInitf543f0294b081013d73534608584ec32
         'PHPUnit\\Framework\\Constraint\\SameSize' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Cardinality/SameSize.php',
         'PHPUnit\\Framework\\Constraint\\StringContains' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringContains.php',
         'PHPUnit\\Framework\\Constraint\\StringEndsWith' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringEndsWith.php',
-        'PHPUnit\\Framework\\Constraint\\StringEqualsStrinANSnoringLineEndings' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringEqualsStringIgnoringLineEndings.php',
+        'PHPUnit\\Framework\\Constraint\\StringEqualsStringignoringLineEndings' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringEqualsStringIgnoringLineEndings.php',
         'PHPUnit\\Framework\\Constraint\\StringMatchesFormatDescription' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringMatchesFormatDescription.php',
         'PHPUnit\\Framework\\Constraint\\StringStartsWith' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/String/StringStartsWith.php',
         'PHPUnit\\Framework\\Constraint\\TraversableContains' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Traversable/TraversableContains.php',
@@ -1437,7 +1437,7 @@ class ComposerStaticInitf543f0294b081013d73534608584ec32
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
+        'ï¿½' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

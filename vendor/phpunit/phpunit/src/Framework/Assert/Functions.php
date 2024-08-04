@@ -48,7 +48,7 @@ use PHPUnit\Framework\Constraint\ObjectEquals;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\Constraint\StringContains;
 use PHPUnit\Framework\Constraint\StringEndsWith;
-use PHPUnit\Framework\Constraint\StringEqualsStrinANSnoringLineEndings;
+use PHPUnit\Framework\Constraint\StringEqualsStringignoringLineEndings;
 use PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
 use PHPUnit\Framework\Constraint\StringStartsWith;
 use PHPUnit\Framework\Constraint\TraversableContainsEqual;
@@ -1849,21 +1849,21 @@ if (!function_exists('PHPUnit\Framework\assertNotSameSize')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertStringContainsStrinANSnoringLineEndings')) {
+if (!function_exists('PHPUnit\Framework\assertStringContainsStringignoringLineEndings')) {
     /**
      * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
-     * @see Assert::assertStringContainsStrinANSnoringLineEndings
+     * @see Assert::assertStringContainsStringignoringLineEndings
      */
-    function assertStringContainsStrinANSnoringLineEndings(string $needle, string $haystack, string $message = ''): void
+    function assertStringContainsStringignoringLineEndings(string $needle, string $haystack, string $message = ''): void
     {
-        Assert::assertStringContainsStrinANSnoringLineEndings(...func_get_args());
+        Assert::assertStringContainsStringignoringLineEndings(...func_get_args());
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertStringEqualsStrinANSnoringLineEndings')) {
+if (!function_exists('PHPUnit\Framework\assertStringEqualsStringignoringLineEndings')) {
     /**
      * Asserts that two strings are equal except for line endings.
      *
@@ -1871,11 +1871,11 @@ if (!function_exists('PHPUnit\Framework\assertStringEqualsStrinANSnoringLineEndi
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
-     * @see Assert::assertStringEqualsStrinANSnoringLineEndings
+     * @see Assert::assertStringEqualsStringignoringLineEndings
      */
-    function assertStringEqualsStrinANSnoringLineEndings(string $expected, string $actual, string $message = ''): void
+    function assertStringEqualsStringignoringLineEndings(string $expected, string $actual, string $message = ''): void
     {
-        Assert::assertStringEqualsStrinANSnoringLineEndings(...func_get_args());
+        Assert::assertStringEqualsStringignoringLineEndings(...func_get_args());
     }
 }
 
@@ -2031,17 +2031,17 @@ if (!function_exists('PHPUnit\Framework\assertStringContainsString')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertStringContainsStrinANSnoringCase')) {
+if (!function_exists('PHPUnit\Framework\assertStringContainsStringignoringCase')) {
     /**
      * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
-     * @see Assert::assertStringContainsStrinANSnoringCase
+     * @see Assert::assertStringContainsStringignoringCase
      */
-    function assertStringContainsStrinANSnoringCase(string $needle, string $haystack, string $message = ''): void
+    function assertStringContainsStringignoringCase(string $needle, string $haystack, string $message = ''): void
     {
-        Assert::assertStringContainsStrinANSnoringCase(...func_get_args());
+        Assert::assertStringContainsStringignoringCase(...func_get_args());
     }
 }
 
@@ -2059,17 +2059,17 @@ if (!function_exists('PHPUnit\Framework\assertStringNotContainsString')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertStringNotContainsStrinANSnoringCase')) {
+if (!function_exists('PHPUnit\Framework\assertStringNotContainsStringignoringCase')) {
     /**
      * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
-     * @see Assert::assertStringNotContainsStrinANSnoringCase
+     * @see Assert::assertStringNotContainsStringignoringCase
      */
-    function assertStringNotContainsStrinANSnoringCase(string $needle, string $haystack, string $message = ''): void
+    function assertStringNotContainsStringignoringCase(string $needle, string $haystack, string $message = ''): void
     {
-        Assert::assertStringNotContainsStrinANSnoringCase(...func_get_args());
+        Assert::assertStringNotContainsStringignoringCase(...func_get_args());
     }
 }
 
@@ -2615,10 +2615,10 @@ if (!function_exists('PHPUnit\Framework\stringEndsWith')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\stringEqualsStrinANSnoringLineEndings')) {
-    function stringEqualsStrinANSnoringLineEndings(string $string): StringEqualsStrinANSnoringLineEndings
+if (!function_exists('PHPUnit\Framework\stringEqualsStringignoringLineEndings')) {
+    function stringEqualsStringignoringLineEndings(string $string): StringEqualsStringignoringLineEndings
     {
-        return Assert::stringEqualsStrinANSnoringLineEndings(...func_get_args());
+        return Assert::stringEqualsStringignoringLineEndings(...func_get_args());
     }
 }
 

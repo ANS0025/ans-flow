@@ -343,7 +343,7 @@ return array(
     'PHPUnit\\Framework\\Constraint\\SameSize' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/Cardinality/SameSize.php',
     'PHPUnit\\Framework\\Constraint\\StringContains' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringContains.php',
     'PHPUnit\\Framework\\Constraint\\StringEndsWith' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringEndsWith.php',
-    'PHPUnit\\Framework\\Constraint\\StringEqualsStrinANSnoringLineEndings' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringEqualsStringIgnoringLineEndings.php',
+    'PHPUnit\\Framework\\Constraint\\StringEqualsStringignoringLineEndings' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringEqualsStringIgnoringLineEndings.php',
     'PHPUnit\\Framework\\Constraint\\StringMatchesFormatDescription' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringMatchesFormatDescription.php',
     'PHPUnit\\Framework\\Constraint\\StringStartsWith' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/String/StringStartsWith.php',
     'PHPUnit\\Framework\\Constraint\\TraversableContains' => $vendorDir . '/phpunit/phpunit/src/Framework/Constraint/Traversable/TraversableContains.php',
@@ -1200,5 +1200,5 @@ return array(
     'TheSeer\\Tokenizer\\XMLSerializer' => $vendorDir . '/theseer/tokenizer/src/XMLSerializer.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-    '©' => $vendorDir . '/symfony/cache/Traits/ValueWrapper.php',
+    'ï¿½' => $vendorDir . '/symfony/cache/Traits/ValueWrapper.php',
 );
